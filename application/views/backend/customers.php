@@ -184,7 +184,7 @@
                 <div id="appointment-details" class="card bg-light border-light d-none"></div>
                 <hr>
                 <div class="col-md-6">  
-                  <div id="mapid" style="width: 100%;height: 480px;box-shadow: 5px 5px 5px #888;"></div>
+                    <div id="mapid" style="width: 200%;height: 480px;box-shadow: 5px 5px 5px #888;"></div>
               </div>
           </div>
 
@@ -199,46 +199,56 @@
     </div>
 </div>
 
+<!-- leaflet -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
+
 <script type="text/javascript">
-    
-var marker;
 
-var markes;
+    var marker;
 
-var map = L.map('mapid');
+    var markes;
+
+    var map = L.map('mapid');
 
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  // attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-  maxZoom: 18
-}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+      maxZoom: 18
+  }).addTo(map);
 
-L.control.scale().addTo(map);
+    L.control.scale().addTo(map);
 
- 
 
-  $.ajax({
-    url: BASE_URL+'/leads/mapall',   
-    dataType: 'json'    
-  })
-  .done(function(result) {
+
+  // $.ajax({
+  //   url: BASE_URL+'/leads/mapall',   
+  //   dataType: 'json'    
+  // })
+  // .done(function(result) {
 
   // console.log(result);
 
-  for (let i = 0; i < result.length; i++) {  
+  // for (let i = 0; i < result.length; i++) {  
+
+    view = map.setView(['-34','-64'],2);
+
+    marker =  L.marker(['-34','-64']).addTo(map);
+
+    marker.bindPopup(GlobalVariables.customers.state).addTo(map); 
 
     
 
-    view = map.setView([result[i].lat,result[i].long],2);
+    // view = map.setView([result[i].lat,result[i].long],2);
 
-    marker =  L.marker([result[i].lat,result[i].long]).addTo(map);
+    // marker =  L.marker([result[i].lat,result[i].long]).addTo(map);
 
-    marker.bindPopup(result[i].country).addTo(map);  
+    // marker.bindPopup(result[i].country).addTo(map);  
 
-  }
+  // }
 
- 
-});
+
+// });
 
 
 
